@@ -12,23 +12,39 @@ document.addEventListener('DOMContentLoaded', () => {
     const mobileNav = document.getElementById('mobile-nav');
 
     if (mobileToggle && mobileNav) {
+        const icon = mobileToggle.querySelector('i');
+
+        const closeMobileMenu = () => {
+            mobileNav.classList.remove('active', 'open');
+            mobileToggle.classList.remove('active');
+            if (icon) {
+                icon.classList.add('fa-bars');
+                icon.classList.remove('fa-xmark');
+            }
+            document.body.style.overflow = '';
+        };
+
         mobileToggle.addEventListener('click', () => {
-            const isOpen = mobileNav.classList.toggle('open');
-            const icon = mobileToggle.querySelector('i');
-            icon.classList.toggle('fa-bars', !isOpen);
-            icon.classList.toggle('fa-xmark', isOpen);
+            const isOpen = mobileNav.classList.toggle('active');
+            mobileNav.classList.toggle('open', isOpen); // backwards compatibility
+            mobileToggle.classList.toggle('active', isOpen);
+            if (icon) {
+                icon.classList.toggle('fa-bars', !isOpen);
+                icon.classList.toggle('fa-xmark', isOpen);
+            }
             document.body.style.overflow = isOpen ? 'hidden' : '';
         });
 
-        // Close menu when a nav link is clicked
+        // Close menu when a nav link is clicked (works for touch/click)
         mobileNav.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileNav.classList.remove('open');
-                const icon = mobileToggle.querySelector('i');
-                icon.classList.add('fa-bars');
-                icon.classList.remove('fa-xmark');
-                document.body.style.overflow = '';
-            });
+            link.addEventListener('click', closeMobileMenu);
+        });
+
+        // Close if viewport switches back to desktop size
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 900) {
+                closeMobileMenu();
+            }
         });
     }
 
