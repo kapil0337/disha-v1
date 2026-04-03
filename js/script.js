@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const closeMobileMenu = () => {
             mobileNav.classList.remove('active', 'open');
             mobileToggle.classList.remove('active');
+            mobileToggle.setAttribute('aria-expanded', 'false');
             if (icon) {
                 icon.classList.add('fa-bars');
                 icon.classList.remove('fa-xmark');
@@ -28,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const isOpen = mobileNav.classList.toggle('active');
             mobileNav.classList.toggle('open', isOpen); // backwards compatibility
             mobileToggle.classList.toggle('active', isOpen);
+            mobileToggle.setAttribute('aria-expanded', String(isOpen));
             if (icon) {
                 icon.classList.toggle('fa-bars', !isOpen);
                 icon.classList.toggle('fa-xmark', isOpen);
@@ -35,14 +37,28 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.style.overflow = isOpen ? 'hidden' : '';
         });
 
+        document.addEventListener('click', (event) => {
+            const clickedInsideMenu = mobileNav.contains(event.target);
+            const clickedToggle = mobileToggle.contains(event.target);
+            if (!clickedInsideMenu && !clickedToggle && mobileNav.classList.contains('active')) {
+                closeMobileMenu();
+            }
+        });
+
         // Close menu when a nav link is clicked (works for touch/click)
         mobileNav.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', closeMobileMenu);
         });
 
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && mobileNav.classList.contains('active')) {
+                closeMobileMenu();
+            }
+        });
+
         // Close if viewport switches back to desktop size
         window.addEventListener('resize', () => {
-            if (window.innerWidth > 900) {
+            if (window.innerWidth > 768) {
                 closeMobileMenu();
             }
         });
@@ -127,28 +143,38 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Know More hover panels — expand on button hover, stay open while over panel
+// Know More panels — click/tap to toggle (mobile-safe)
 document.querySelectorAll('.service-card').forEach(card => {
     const btn = card.querySelector('.know-more-btn');
     const panel = card.querySelector('.service-panel');
     if (!btn || !panel) return;
 
-    let leaveTimer;
-
+    const close = () => {
+        btn.classList.remove('active');
+        panel.classList.remove('active');
+    };
     const open = () => {
-        clearTimeout(leaveTimer);
+        document.querySelectorAll('.know-more-btn.active').forEach(otherBtn => otherBtn.classList.remove('active'));
+        document.querySelectorAll('.service-panel.active').forEach(otherPanel => otherPanel.classList.remove('active'));
         btn.classList.add('active');
         panel.classList.add('active');
     };
-    const close = () => {
-        leaveTimer = setTimeout(() => {
-            btn.classList.remove('active');
-            panel.classList.remove('active');
-        }, 80); // tiny delay prevents flicker when moving from btn to panel
-    };
 
-    btn.addEventListener('mouseenter', open);
-    btn.addEventListener('mouseleave', close);
-    panel.addEventListener('mouseenter', open);
-    panel.addEventListener('mouseleave', close);
+    btn.addEventListener('click', (event) => {
+        event.preventDefault();
+        if (panel.classList.contains('active')) {
+            close();
+        } else {
+            open();
+        }
+    });
+
+    btn.addEventListener('touchstart', (event) => {
+        event.preventDefault();
+        if (panel.classList.contains('active')) {
+            close();
+        } else {
+            open();
+        }
+    }, { passive: false });
 });

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Disha Constructions | Premium Real Estate</title>
 
     <!-- Meta SEO -->
@@ -67,9 +67,9 @@
             </div>
 
             <!-- Mobile Menu Toggle -->
-            <div class="mobile-toggle" id="mobile-toggle">
+            <button class="mobile-toggle" id="mobile-toggle" type="button" aria-label="Toggle mobile menu" aria-controls="mobile-nav" aria-expanded="false">
                 <i class="fa-solid fa-bars"></i>
-            </div>
+            </button>
         </div>
     </header>
 
@@ -314,9 +314,9 @@
                 <div class="talk-form">
                     <h3>Request A Quote</h3>
                     <form>
-                        <input type="text" placeholder="Your Name" required>
-                        <input type="email" placeholder="Email Address" required>
-                        <input type="text" placeholder="Phone Number">
+                        <input type="text" placeholder="Your Name" inputmode="text" autocomplete="name" required>
+                        <input type="email" placeholder="Email Address" inputmode="email" autocomplete="email" required>
+                        <input type="tel" placeholder="Phone Number" inputmode="numeric" autocomplete="tel">
                         <textarea placeholder="Tell us about your project" rows="4"></textarea>
                         <button type="button" class="btn btn-primary" style="width: 100%;">Submit Request</button>
                     </form>
