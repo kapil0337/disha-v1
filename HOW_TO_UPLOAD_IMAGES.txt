@@ -1,0 +1,16 @@
+===================================================
+   HOW TO UPLOAD YOUR PHOTOS / LOGO / VIDEOS
+===================================================
+
+Great news! I have updated the code so you DO NOT EVEN NEED TO EDIT ANY FILES ANYMORE! 
+
+1. Open your File Explorer and navigate to the "images" folder:
+   Path: `d:\OneDrive - bonbloc.com\proj\Disha\images`
+
+2. Simply drop your real image files into that folder and rename them to match my placeholder names:
+   - Your company logo: Save it as exactly `logo.png`
+   - Your background video: Save it as exactly `hero-video.mp4`
+
+Once you drop `logo.png` into the images folder, it will instantly and automatically appear in the Header, Footer, and the Loading Screen! 
+
+Enjoy your fully automated deployment!
