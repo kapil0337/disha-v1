@@ -7,6 +7,31 @@ document.addEventListener('DOMContentLoaded', () => {
         offset: 100
     });
 
+    // Mobile Hamburger Menu Toggle
+    const mobileToggle = document.getElementById('mobile-toggle');
+    const mobileNav = document.getElementById('mobile-nav');
+
+    if (mobileToggle && mobileNav) {
+        mobileToggle.addEventListener('click', () => {
+            const isOpen = mobileNav.classList.toggle('open');
+            const icon = mobileToggle.querySelector('i');
+            icon.classList.toggle('fa-bars', !isOpen);
+            icon.classList.toggle('fa-xmark', isOpen);
+            document.body.style.overflow = isOpen ? 'hidden' : '';
+        });
+
+        // Close menu when a nav link is clicked
+        mobileNav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileNav.classList.remove('open');
+                const icon = mobileToggle.querySelector('i');
+                icon.classList.add('fa-bars');
+                icon.classList.remove('fa-xmark');
+                document.body.style.overflow = '';
+            });
+        });
+    }
+
     // Navbar Scroll Effect
     const navbar = document.getElementById('navbar');
     
