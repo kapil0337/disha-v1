@@ -141,6 +141,78 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         window.addEventListener('load', initPreloader);
     }
+
+    // Form Submission Logic (AJAX)
+    const setupForm = (formId) => {
+        const form = document.getElementById(formId);
+        if (!form) return;
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = form.querySelector('button[type="submit"]');
+            const originalBtnText = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+            btn.disabled = true;
+
+            try {
+                const formData = new FormData(form);
+                const response = await fetch('process_form.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok && result.status === 'success') {
+                    showToast('Message sent successfully!', 'success');
+                    form.reset();
+                } else {
+                    showToast(result.message || 'Error sending message.', 'error');
+                }
+            } catch (err) {
+                showToast('A network error occurred. Please try again.', 'error');
+                console.error(err);
+            } finally {
+                btn.innerHTML = originalBtnText;
+                btn.disabled = false;
+            }
+        });
+    };
+
+    setupForm('quote-form');
+    setupForm('contact-form');
+
+    // Toast Notification System
+    const createToastContainer = () => {
+        let container = document.getElementById('toast-container');
+        if (!container) {
+            container = document.createElement('div');
+            container.id = 'toast-container';
+            document.body.appendChild(container);
+        }
+        return container;
+    };
+
+    const showToast = (message, type = 'success') => {
+        const container = createToastContainer();
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        
+        const icon = type === 'success' ? 'fa-circle-check' : 'fa-circle-exclamation';
+        toast.innerHTML = `<i class="fa-solid ${icon}"></i> <span>${message}</span>`;
+        
+        container.appendChild(toast);
+        
+        // Trigger reflow & animate in
+        setTimeout(() => toast.classList.add('show'), 10);
+        
+        // Animate out and remove
+        setTimeout(() => {
+            toast.classList.remove('show');
+            setTimeout(() => toast.remove(), 400); // Wait for transition
+        }, 5000);
+    };
+
 });
 
 // Know More panels — click/tap to toggle (mobile-safe)

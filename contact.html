@@ -99,9 +99,16 @@
             <p style="font-size: 1.2rem; margin-bottom: 1rem;"><i class="fa-solid fa-envelope" style="color:var(--clr-red); margin-right: 10px;"></i> info@dishaconstructions.com</p>
         </div>
         <div>
-            <div style="background:var(--clr-light-bg); padding: 3rem; border-radius: 4px; box-shadow: var(--shadow-sm); text-align:center;">
-                <i class="fa-solid fa-envelope-open-text" style="font-size: 3rem; color:var(--clr-navy); margin-bottom: 1rem;"></i>
-                <p>Contact forms can be integrated using PHP via cPanel</p>
+            <div class="talk-form shadow-sm" style="background:var(--clr-white); padding: 3rem; border-radius: 8px;">
+                <h3 style="margin-bottom: 20px; color: var(--clr-navy);">Send Us A Message</h3>
+                <form id="contact-form">
+                    <input type="hidden" name="form_type" value="contact">
+                    <input type="text" name="name" placeholder="Your Full Name" required>
+                    <input type="email" name="email" placeholder="Email Address" required>
+                    <input type="text" name="subject" placeholder="Subject">
+                    <textarea name="message" placeholder="How can we help you?" rows="5" required></textarea>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message <i class="fa-solid fa-paper-plane" style="margin-left: 8px;"></i></button>
+                </form>
             </div>
         </div>
     </div>

@@ -313,12 +313,13 @@
                 </div>
                 <div class="talk-form">
                     <h3>Request A Quote</h3>
-                    <form>
-                        <input type="text" placeholder="Your Name" inputmode="text" autocomplete="name" required>
-                        <input type="email" placeholder="Email Address" inputmode="email" autocomplete="email" required>
-                        <input type="tel" placeholder="Phone Number" inputmode="numeric" autocomplete="tel">
-                        <textarea placeholder="Tell us about your project" rows="4"></textarea>
-                        <button type="button" class="btn btn-primary" style="width: 100%;">Submit Request</button>
+                    <form id="quote-form">
+                        <input type="hidden" name="form_type" value="quote">
+                        <input type="text" name="name" placeholder="Your Name" inputmode="text" autocomplete="name" required>
+                        <input type="email" name="email" placeholder="Email Address" inputmode="email" autocomplete="email" required>
+                        <input type="tel" name="phone" placeholder="Phone Number" inputmode="numeric" autocomplete="tel">
+                        <textarea name="message" placeholder="Tell us about your project" rows="4" required></textarea>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Request</button>
                     </form>
                 </div>
             </div>
