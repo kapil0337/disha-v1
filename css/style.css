@@ -389,9 +389,8 @@ img {
 .tagline-wrapper {
     display: flex;
     flex-direction: column;
-    width: fit-content;
-    align-self: flex-start; /* Ensure proper left-alignment under the title */
-    margin-left: 2px; /* Slight optical adjustment for italics */
+    width: 100%; /* Stretch to perfectly match the title width */
+    margin-top: 2px;
 }
 
 .brand-tagline {
@@ -402,6 +401,8 @@ img {
     margin: 0;
     line-height: 1;
     white-space: nowrap;
+    text-align: center; /* Centers the script within the full-width block */
+    width: 100%;
     transition: var(--transition);
 }
 
@@ -1511,7 +1512,7 @@ img {
     .footer-logo-lockup .tagline-wrapper {
         align-self: center;
         margin-left: 0; /* Reset desktop optic margin */
-        width: max-content; /* Ensure the wrapper is strictly the width of the tagline */
+        width: 100%; /* Ensure the wrapper matches the title width on mobile */
     }
     
     .footer-logo-lockup .brand-tagline {
