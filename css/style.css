@@ -19,6 +19,8 @@
     /* Typography */
     --font-heading: 'Montserrat', sans-serif;
     --font-body: 'Inter', sans-serif;
+    --font-title: 'Anton', sans-serif;
+    --font-tagline: 'Dancing Script', cursive;
     
     /* Shadows & Transitions */
     --shadow-sm: 0 4px 6px -1px rgba(15, 32, 75, 0.05), 0 2px 4px -1px rgba(15, 32, 75, 0.03);
@@ -244,14 +246,15 @@ img {
 /* =========================================
    NAVBAR
    ========================================= */
+/* Navbar & Branding Refinement */
 .navbar {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    background-color: var(--clr-white);
-    border-bottom: 1px solid var(--clr-gray-blue);
-    padding: 1rem 0;
+    background-color: #ffffff !important; /* Force Solid White at all times */
+    border-bottom: 2px solid var(--clr-gray-blue);
+    padding: 0.75rem 0;
     z-index: 1000;
     transition: var(--transition);
 }
@@ -259,7 +262,7 @@ img {
 .navbar.scrolled {
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     padding: 0.5rem 0;
-    background-color: rgba(255, 255, 255, 0.95);
+    background-color: rgba(255, 255, 255, 0.98);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
 }
@@ -321,40 +324,138 @@ img {
     display: block;
 }
 
-.logo h1, .footer-col h2, .loader-logo {
+.logo-lockup {
+    display: flex;
+    align-items: center; /* Vertical alignment with the entire text block */
+    gap: 18px; /* Slightly more breathe room */
+}
+
+.logo-img {
+    height: 80px; /* Slightly reduced as requested */
+    width: auto;
+    object-fit: contain;
+    margin-top: -2px; /* Maintaining correct vertical alignment */
+}
+
+.brand-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.brand-title {
+    font-family: var(--font-title); /* Restored to Anton font */
+    font-size: 1.85rem; /* Shrunk slightly to match icon */
+    color: #FF0000;
+    text-transform: uppercase;
+    margin: 0;
+    line-height: 1.1;
+    letter-spacing: 0.6px; /* Very slight spacing added */
+    display: flex;
+    align-items: center;
+}
+
+.reg-symbol {
+    font-size: 0.65em; /* Larger per request */
+    font-family: 'Arial', sans-serif;
+    vertical-align: top;
+    position: relative;
+    top: -8px; /* Slightly higher per request */
+    font-weight: 700;
+    margin-left: 4px;
+    display: inline-block;
+    color: #FF0000; /* Ensuring it's the brand red */
+}
+
+.tagline-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    align-self: flex-start; /* Ensure proper left-alignment under the title */
+    margin-left: 2px; /* Slight optical adjustment for italics */
+}
+
+.brand-tagline {
+    font-family: var(--font-tagline);
+    font-size: 1.25rem; /* Proportional increase for better balance with large logo */
+    color: #1A3673; /* Elegant Blue Script */
+    font-weight: 700;
+    margin: 0;
     line-height: 1;
+    white-space: nowrap;
 }
 
-.logo h1 {
-    font-size: 2.2rem;
-    color: var(--clr-navy);
-    transition: var(--transition);
+.tagline-lines {
+    height: 10px; /* Thicker distinct lines */
+    width: 100%;
+    border-top: 3px solid #FFD600; /* Bold vibrant yellow */
+    border-bottom: 3px solid #FFD600; /* Bold vibrant yellow */
+    margin-top: 5px;
 }
 
-.logo span, .footer-col h2 span, .loader-logo span {
-    color: var(--clr-red);
+/* Scroll behavior refinements */
+.navbar.scrolled .logo-img { height: 54px; }
+.navbar.scrolled .brand-title { font-size: 1.6rem; }
+.navbar.scrolled .brand-tagline { font-size: 1rem; }
+
+/* Footer Branding Sync */
+.footer-logo-lockup .brand-title {
+    color: #ffffff;
+    display: flex;
+    align-items: center;
 }
 
-.logo-subtext {
-    font-size: 0.35em;
-    font-weight: 500;
-    letter-spacing: 6px;
-    display: block;
-    margin-top: 2px;
-    color: inherit;
+.footer-logo-lockup .reg-symbol {
+    color: #ffffff;
 }
 
+.footer-logo-lockup .brand-tagline {
+    color: #ffffff;
+}
 
-
+.footer-logo-lockup .tagline-lines {
+    border-top-color: #FFD700;
+    border-bottom-color: #FFD700;
+}
 
 .nav-link {
     font-family: var(--font-heading);
     font-weight: 600;
     font-size: 0.9rem;
     text-transform: uppercase;
-    color: var(--clr-navy);
+    color: var(--clr-navy); /* Dark by default */
     position: relative;
     padding-bottom: 5px;
+}
+
+.navbar.scrolled .mobile-toggle {
+    color: var(--clr-navy);
+}
+
+.footer-logo-lockup {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 1.5rem;
+}
+
+.footer-logo-img {
+    height: 76px; /* Proportionally increased with header logo */
+    width: auto;
+    margin-top: -2px; /* Consistent elevation with header logo */
+}
+
+
+
+.mobile-toggle {
+    display: none;
+    font-size: 1.5rem;
+    color: var(--clr-navy);
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    padding: 0.25rem;
+    touch-action: manipulation;
 }
 
 .nav-link::after {
@@ -372,16 +473,6 @@ img {
     width: 100%;
 }
 
-.mobile-toggle {
-    display: none;
-    font-size: 1.5rem;
-    color: var(--clr-navy);
-    cursor: pointer;
-    border: none;
-    background: transparent;
-    padding: 0.25rem;
-    touch-action: manipulation;
-}
 
 .mobile-toggle.active i {
     color: var(--clr-red);
@@ -1343,10 +1434,14 @@ img {
 }
 
 @media (max-width: 480px) {
-    .hero-title { font-size: 2rem; }
     .btn { display: block; width: 100%; text-align: center; margin-bottom: 0.5rem; }
     .hero-actions { display: flex; flex-direction: column; gap: 0.5rem; }
-    .logo img { height: 32px !important; }
+    .logo-img { height: 52px !important; } /* Proportional Increase for mobile */
+    .logo-lockup { gap: 6px; }
+    .brand-title { font-size: 1.15rem; letter-spacing: 0.5px; }
+    .reg-symbol { font-size: 0.45em; top: -3px; }
+    .brand-tagline { font-size: 0.72rem; }
+    .tagline-lines { height: 4px; border-top-width: 1px; border-bottom-width: 1px; }
     .stat-item h3, .stat-item span { font-size: 2.8rem; }
     .project-img { height: 200px; }
     .service-card { padding: 2rem 1.5rem; }
