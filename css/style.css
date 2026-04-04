@@ -180,7 +180,7 @@ img {
     position: absolute;
     bottom: -15px;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-58%);
     width: 60px;
     height: 4px;
     background-color: var(--clr-red);
@@ -1524,6 +1524,12 @@ img {
 .testimonials-section .section-title {
     margin-bottom: 3rem;
 }
+
+/* Remove the red underline from the testimonials heading */
+.testimonials-section .section-title h2::after {
+    display: none;
+}
+
 
 .testimonials-section .section-title p {
     color: #666;
