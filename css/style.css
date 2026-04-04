@@ -55,6 +55,18 @@ body {
     background-color: var(--clr-white);
     line-height: 1.6;
     overflow-x: hidden;
+    width: 100%;
+}
+
+/* Global Content Wrapping Failsafes */
+p, h1, h2, h3, h4, h5, h6, .brand-text {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+img, svg, video {
+    max-width: 100%;
+    height: auto;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -272,11 +284,12 @@ img {
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    max-width: 1400px;
+    max-width: 100vw;
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 0 1.5rem;
     flex-wrap: nowrap;
-    gap: 2rem;
+    gap: 1.5rem;
+    box-sizing: border-box;
 }
 
 .nav-links {
@@ -327,7 +340,8 @@ img {
 .logo-lockup {
     display: flex;
     align-items: center; /* Vertical alignment with the entire text block */
-    gap: 18px; /* Slightly more breathe room */
+    gap: 15px; /* Slightly more breathe room */
+    min-width: 0; /* Allows shrinking */
 }
 
 .logo-img {
@@ -335,12 +349,15 @@ img {
     width: auto;
     object-fit: contain;
     margin-top: -2px; /* Maintaining correct vertical alignment */
+    flex-shrink: 0; /* Prevents logo from squishing */
+    transition: var(--transition);
 }
 
 .brand-text {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    min-width: 0; /* Allows text to wrap or scale down */
 }
 
 .brand-title {
@@ -353,6 +370,7 @@ img {
     letter-spacing: 0.6px; /* Very slight spacing added */
     display: flex;
     align-items: center;
+    transition: var(--transition);
 }
 
 .reg-symbol {
@@ -365,6 +383,7 @@ img {
     margin-left: 4px;
     display: inline-block;
     color: #FF0000; /* Ensuring it's the brand red */
+    transition: var(--transition);
 }
 
 .tagline-wrapper {
@@ -383,6 +402,7 @@ img {
     margin: 0;
     line-height: 1;
     white-space: nowrap;
+    transition: var(--transition);
 }
 
 .tagline-lines {
@@ -395,7 +415,8 @@ img {
 
 /* Scroll behavior refinements */
 .navbar.scrolled .logo-img { height: 54px; }
-.navbar.scrolled .brand-title { font-size: 1.6rem; }
+.navbar.scrolled .brand-title { font-size: 1.6rem; color: #FF0000; }
+.navbar.scrolled .reg-symbol { color: #FF0000; }
 .navbar.scrolled .brand-tagline { font-size: 1rem; }
 
 /* Footer Branding Sync */
@@ -1436,15 +1457,55 @@ img {
 @media (max-width: 480px) {
     .btn { display: block; width: 100%; text-align: center; margin-bottom: 0.5rem; }
     .hero-actions { display: flex; flex-direction: column; gap: 0.5rem; }
-    .logo-img { height: 52px !important; } /* Proportional Increase for mobile */
-    .logo-lockup { gap: 6px; }
-    .brand-title { font-size: 1.15rem; letter-spacing: 0.5px; }
-    .reg-symbol { font-size: 0.45em; top: -3px; }
-    .brand-tagline { font-size: 0.72rem; }
-    .tagline-lines { height: 4px; border-top-width: 1px; border-bottom-width: 1px; }
+    
+    .logo-lockup { 
+        gap: 8px; 
+        max-width: calc(100vw - 70px); /* Strict boundary to reserve space for menu */
+    }
+    .logo-img { height: 48px; } /* Hard shrink for very top header balancing (removed !important) */
+    .navbar.scrolled .logo-img { height: 38px; } /* Mobile scrolled state */
+    
+    .brand-title { 
+        font-size: clamp(0.95rem, 4vw, 1.15rem); 
+        letter-spacing: 0.5px; 
+        white-space: normal; /* Allow wrap if necessary */
+    }
+    .navbar.scrolled .brand-title { font-size: clamp(0.85rem, 3.5vw, 1rem); color: #FF0000; }
+    
+    .reg-symbol { font-size: 0.45em; top: -3px; color: #FF0000; }
+    .navbar.scrolled .reg-symbol { color: #FF0000; }
+    
+    .brand-tagline { 
+        font-size: clamp(0.6rem, 2.5vw, 0.72rem); 
+        white-space: normal; /* Critical to prevent overrun */
+    }
+    .navbar.scrolled .brand-tagline { font-size: clamp(0.5rem, 2.2vw, 0.65rem); }
+    
+    .tagline-lines { height: 4px; border-top-width: 1px; border-bottom-width: 1px; margin-top: 2px;}
+    
     .stat-item h3, .stat-item span { font-size: 2.8rem; }
     .project-img { height: 200px; }
     .service-card { padding: 2rem 1.5rem; }
+    .container { padding: 0 1rem; }
+    
+    /* Footer Mobile Branding Sync */
+    .footer-logo-lockup { 
+        flex-direction: column; 
+        justify-content: center; 
+        gap: 12px; 
+        align-items: center;
+        max-width: 100vw;
+    }
+    .footer-logo-img { height: 60px; margin-top: 0; }
+    .footer-logo-lockup .brand-title { 
+        font-size: 1.5rem; 
+        white-space: normal;
+        text-align: center;
+    }
+    .footer-logo-lockup .brand-tagline {
+        white-space: normal;
+        text-align: center;
+    }
 }
 
 @media (hover: none) and (pointer: coarse) {
