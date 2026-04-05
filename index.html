@@ -473,7 +473,7 @@
                 </div>
                 <div class="talk-form">
                     <h3>Request A Quote</h3>
-                    <form id="quote-form">
+                    <form id="quote-form" method="POST" action="process_form.php">
                         <input type="hidden" name="form_type" value="quote">
                         <input type="text" name="name" placeholder="Your Name" inputmode="text" autocomplete="name" required>
                         <input type="email" name="email" placeholder="Email Address" inputmode="email" autocomplete="email" required>
