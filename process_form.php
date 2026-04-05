@@ -103,37 +103,36 @@ $mail = new PHPMailer(true);
 try {
     // Server settings (SMTP Configured based on user request)
     // IMPORTANT: SMTPAuth is true. Username and password MUST BE FILLED out on prod.
-    $mail->isSMTP();                                            
-    $mail->Host       = 'mail.dishaconstructions.com';                     
-    $mail->SMTPAuth   = true;                                   
-    $mail->Username   = 'YOUR_SMTP_USER@dishaconstructions.com'; // TO-DO: Fill this     
-    $mail->Password   = 'YOUR_SMTP_PASSWORD';                    // TO-DO: Fill this                        
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            
-    $mail->Port       = 465;                                    
+    $mail->isSMTP();
+    $mail->Host = 'smtp.gmail.com';
+    $mail->SMTPAuth = true;
+    $mail->Username = 'dishasalesleads@gmail.com'; // TO-DO: Fill this     
+    $mail->Password = 'eeaj ejht ossf ppnp';                    // TO-DO: Fill this                        
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+    $mail->Port = 465;
 
     // Sender details. Usually must match the authenticated username or an allowed alias
-    $mail->setFrom('no-reply@dishaconstructions.com', 'Disha Constructions Website'); 
-    
+    $mail->setFrom('no-reply@dishaconstructions.com', 'Disha Constructions Website');
+
     // Set Reply-To to the client's email so the owner can hit "Reply"
     $mail->addReplyTo($email, $name);
 
-    // Recipients
-    $mail->addAddress('sales@dishaconstructions.com'); 
-    $mail->addAddress('admin@dishaconstructions.com'); 
+    // Recipients - Send to both email addresses
     $mail->addAddress('info@dishaconstructions.com');
+    $mail->addAddress('dishaconstructions@rediffmail.com');
 
     // Email Content Settings
-    $mail->isHTML(true);                                  
+    $mail->isHTML(true);
     $mail->Subject = $email_subject;
-    $mail->Body    = $custom_html_body;
-    
+    $mail->Body = $custom_html_body;
+
     // Plain text alternative for email clients that strip HTML
     $mail->AltBody = "LEAD DETAILS:\n\nType: {$form_type}\nName: {$name}\nEmail: {$email}\nPhone: {$phone}\n\nMessage:\n{$message}";
 
     // Dispatch
     $mail->send();
     echo json_encode(["status" => "success", "message" => "Message has been sent"]);
-    
+
 } catch (Exception $e) {
     // Log exception details silently in PHP error log, but return generic to UI
     error_log("Mailer Error: {$mail->ErrorInfo}");
